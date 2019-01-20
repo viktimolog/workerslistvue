@@ -26,36 +26,11 @@
                 salary: ''
             }
         },
-        computed:{
-            // ...mapGetters('products',{
-            //     productsAll: 'items'
-            // }),
-            // ...mapGetters('cart',{
-            //     productsInCart: 'products'
-            // }),
-            name(){
-                return this.name;
-            },
-            position(){
-                return this.position;
-            },
-            salary(){
-                return this.salary;
-            }
-        },
         methods:{
             ...mapActions('workers',{
                 addWorker: 'addItem'
             }),
-
-            onOrder(){
-                this.$router.push('/checkout');
-            },
             submbit(){
-                console.log('name = ', this.name);
-                console.log('position = ', this.position);
-                console.log('salary = ', this.salary);
-
                 const newWorker = {
                     name: this.name,
                     position: this.position,

@@ -1,17 +1,17 @@
 <template>
 <div>
 <div class="col col-sm-9">
-<h1>{{title}}</h1>
+<h1>{{getTitle}}</h1>
 </div>
     <div class="col col-sm-3">
     <button
             class="btn btn-primary button"
             @click="switchNewWorker">
-        {{btnTitle}}
+        {{getBtnTitle}}
     </button>
     </div>
     <div class="row">
-        <table class="table table-border table-hover" v-if="!isNewWorker">
+        <table class="table table-border table-hover" v-if="!getIsNewWorker">
             <thead>
             <tr>
                 <th>Name</th>
@@ -27,7 +27,7 @@
                 <td>{{worker.position}}</td>
                 <td>${{worker.salary}}</td>
                 <td>
-                    <button @click="onOrder"
+                    <button @click="delWorker(worker._id)"
                             class="btn btn-warning">
                         Edit
                     </button>
@@ -41,7 +41,6 @@
             </tr>
             </tbody>
         </table>
-
         <div v-else>
             <cart></cart>
         </div>
@@ -75,13 +74,13 @@
             ...mapGetters('cart',{
                 inCart: 'products'
             }),
-            isNewWorker(){
+            getIsNewWorker(){
                 return this.isNewWorker;
             },
-            title(){
+            getTitle(){
                 return this.title;
             },
-            btnTitle(){
+            getBtnTitle(){
                 return this.btnTitle;
             }
         },

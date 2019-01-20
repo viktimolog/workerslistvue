@@ -12,7 +12,7 @@
     <section>
       <div class="container">
         <div class="row">
-          <div class="col col-sm-2 menu">
+          <div class="col col-sm-2 menu marginRight">
             <ul class="list-group">
               <router-link v-for="(item, index) in menuList"
                            :key="index"
@@ -53,6 +53,9 @@
 </script>
 
 <style scoped>
+.marginRight{
+    margin-right: 40px;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
