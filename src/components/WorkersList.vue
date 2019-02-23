@@ -27,7 +27,7 @@
                 <td>{{worker.position}}</td>
                 <td>${{worker.salary}}</td>
                 <td>
-                    <button @click="delWorker(worker._id)"
+                    <button @click="setWorker(worker)"
                             class="btn btn-warning">
                         Edit
                     </button>
@@ -42,7 +42,7 @@
             </tbody>
         </table>
         <div v-else>
-            <cart></cart>
+            <cart :switchNewWorker = "switchNewWorker" :worker="worker"></cart>
         </div>
     </div>
 </div>
@@ -52,6 +52,7 @@
     import {mapGetters} from 'vuex';
     import {mapActions} from 'vuex';
     import Cart from './Cart';
+    import {router} from '../routes';
     import './Styles/workersListStyles.css';
 
     export default {
@@ -61,18 +62,13 @@
             return {
                 isNewWorker: false,
                 title: 'Workers list',
-                btnTitle: 'Add new worker'
+                btnTitle: 'Add new worker',
+                worker:{}
             }
-        },
-        created(){
-          // this.$store.dispatch('workers/loadItems');
         },
         computed:{
             ...mapGetters('workers',{
                 workers: 'items'
-            }),
-            ...mapGetters('cart',{
-                inCart: 'products'
             }),
             getIsNewWorker(){
                 return this.isNewWorker;
@@ -96,12 +92,16 @@
                 this.isNewWorker = !this.isNewWorker;
                 if(this.isNewWorker){
                     this.title = 'New worker';
-                    this.btnTitle = 'Back to workers list'
+                    this.btnTitle = 'Back to workers list';
                 }
                 else{
                     this.title = 'Workers list';
-                    this.btnTitle = 'Add new worker'
+                    this.btnTitle = 'Add new worker';
+                    this.worker={};
                 }
+            },
+            setWorker(worker){
+                router.push({ name: 'worker', params: { id: worker._id }});
             }
         }
     }

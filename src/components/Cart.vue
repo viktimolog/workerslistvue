@@ -1,8 +1,9 @@
 <template>
     <div>
+        <h2>{{`${worker.name} cart`}}</h2>
         <hr>
         <div class="alert alert-warning">
-            <form v-on:submit.prevent="submbit">
+            <form v-on:submit.prevent="submit">
                 <input v-model="name" type="text" class="form-control" placeholder="Name">
                 <input v-model="position" type="text" class="form-control" placeholder="Position">
                 <input v-model="salary" type="number" class="form-control" placeholder="Salary">
@@ -23,25 +24,48 @@
             return {
                 name: '',
                 position: '',
-                salary: ''
+                salary: '',
+                isData: false
             }
+        },
+        beforeUpdate(){
+            if(!this.isData && this.worker){
+                this.isData = true;
+                this.name = this.worker.name;
+                this.position = this.worker.position;
+                this.salary = this.worker.salary;
+            }
+        },
+        computed:{
+            ...mapGetters('workers',{
+                worker: 'item'
+            })
         },
         methods:{
             ...mapActions('workers',{
-                addWorker: 'addItem'
+                addWorker: 'addItem',
+                updateWorker: 'updateItem',
             }),
-            submbit(){
+            submit(){
                 const newWorker = {
                     name: this.name,
                     position: this.position,
                     salary: this.salary
                 };
-                this.addWorker(newWorker);
+                if(!this.worker._id){
+                    this.addWorker(newWorker);
+                }
+                else{
+                    const updatedWorker = {...this.worker};
+                    updatedWorker.name = this.name;
+                    updatedWorker.position = this.position;
+                    updatedWorker.salary = this.salary;
+                    this.updateWorker(updatedWorker);
+                }
             }
         }
     }
 </script>
-
 <style>
     input{
         margin-bottom: 20px;

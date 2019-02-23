@@ -7,15 +7,10 @@ export default {
                 text: 'Workers List'
             },
             {
-                url: '/cart',
-                text: 'Your cart'
-            },
-            {
-                url: '/checkout',
-                text: 'Order now'
-            },
+                url: '/notes',
+                text: 'Notes'
+            }
         ]
-
     },
     getters:{
         items(state){
