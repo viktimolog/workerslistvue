@@ -22,6 +22,9 @@ export default {
         },
         fetchItem(state, data){
             state.item = data;
+        },
+        setDefaultItem(state){
+            state.item = {};
         }
     },
     actions:{
@@ -32,6 +35,9 @@ export default {
         fetchItem(store, id){
             axios.get(Urls.getWorker + id)
                 .then(data=>store.commit('fetchItem', data.data));
+        },
+        setDefaultItem(store){
+                store.commit('setDefaultItem');
         },
         addItem(store, newWorker){
             axios.post(Urls.addWorker, newWorker)

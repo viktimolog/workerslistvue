@@ -4,7 +4,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import WorkersList from './components/WorkersList';
-import Cart from './components/Cart';
+import Card from './components/Card';
 import E404 from './components/E404';
 import {store} from './store';
 
@@ -19,19 +19,23 @@ const routes = [
         path: '/workers',
         component: WorkersList,
         beforeEnter(from, to, next){
+            store.dispatch('workers/setDefaultItem');
             store.dispatch('workers/fetchItems')
                 .then(() => next())
-                .catch(() => next({ name: '404' }))
+                .catch(() => next({ name: '404' }));
         }
     },
     {
         name: 'worker',
         path: '/workers/:id',
-        component: Cart,
+        component: Card,
         beforeEnter(to, from, next){
+            if(to.params.id === 'new'){
+                return next();
+            }
             store.dispatch('workers/fetchItem', to.params.id)
                 .then(() => next())
-                .catch(() => next({ name: '404' }))
+                .catch(() => next({ name: '404' }));
         }
     },
     {

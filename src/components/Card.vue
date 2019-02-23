@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h2>{{`${worker.name} cart`}}</h2>
+        <h2 v-if="worker._id">{{`${worker.name} card`}}</h2>
+        <h2 v-else>New worker card</h2>
         <hr>
         <div class="alert alert-warning">
             <form v-on:submit.prevent="submit">

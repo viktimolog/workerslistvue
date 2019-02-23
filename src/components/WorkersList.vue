@@ -6,12 +6,12 @@
     <div class="col col-sm-3">
     <button
             class="btn btn-primary button"
-            @click="switchNewWorker">
+            @click="switchWorker('new')">
         {{getBtnTitle}}
     </button>
     </div>
     <div class="row">
-        <table class="table table-border table-hover" v-if="!getIsNewWorker">
+        <table class="table table-border table-hover">
             <thead>
             <tr>
                 <th>Name</th>
@@ -27,7 +27,7 @@
                 <td>{{worker.position}}</td>
                 <td>${{worker.salary}}</td>
                 <td>
-                    <button @click="setWorker(worker)"
+                    <button @click="switchWorker(worker._id)"
                             class="btn btn-warning">
                         Edit
                     </button>
@@ -41,9 +41,6 @@
             </tr>
             </tbody>
         </table>
-        <div v-else>
-            <cart :switchNewWorker = "switchNewWorker" :worker="worker"></cart>
-        </div>
     </div>
 </div>
 </template>
@@ -51,28 +48,23 @@
 <script>
     import {mapGetters} from 'vuex';
     import {mapActions} from 'vuex';
-    import Cart from './Cart';
+    import Card from './Card';
     import {router} from '../routes';
     import './Styles/workersListStyles.css';
 
     export default {
-        components: { Cart },
+        components: { Card },
 
         data () {
             return {
-                isNewWorker: false,
                 title: 'Workers list',
                 btnTitle: 'Add new worker',
-                worker:{}
             }
         },
         computed:{
             ...mapGetters('workers',{
                 workers: 'items'
             }),
-            getIsNewWorker(){
-                return this.isNewWorker;
-            },
             getTitle(){
                 return this.title;
             },
@@ -81,27 +73,11 @@
             }
         },
         methods:{
-            ...mapActions('cart',{
-                addToCart: 'add',
-                removeFromCart: 'remove'
-            }),
             ...mapActions('workers',{
                 delWorker: 'delItem'
             }),
-            switchNewWorker(){
-                this.isNewWorker = !this.isNewWorker;
-                if(this.isNewWorker){
-                    this.title = 'New worker';
-                    this.btnTitle = 'Back to workers list';
-                }
-                else{
-                    this.title = 'Workers list';
-                    this.btnTitle = 'Add new worker';
-                    this.worker={};
-                }
-            },
-            setWorker(worker){
-                router.push({ name: 'worker', params: { id: worker._id }});
+            switchWorker(id){
+                router.push({ name: 'worker', params: { id }});
             }
         }
     }
