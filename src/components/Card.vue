@@ -10,6 +10,7 @@
                 <input v-model="salary" type="number" class="form-control" placeholder="Salary">
                 <div class="button-block">
                     <button class="btn btn-success">Save</button>
+                    <button @click="back()" class="btn btn-warning">Cancel</button>
                 </div>
             </form>
         </div>
@@ -19,6 +20,7 @@
 <script>
     import {mapGetters} from 'vuex';
     import {mapActions} from 'vuex';
+    import {router} from '../routes';
     import {isProtected} from '../utils/helpers';
 
     export default {
@@ -67,7 +69,10 @@
                     updatedWorker.salary = this.salary;
                     this.updateWorker(updatedWorker);
                 }
-            }
+            },
+            back(){
+                router.push({ name: 'workers' });
+            },
         }
     }
 </script>
@@ -77,6 +82,6 @@
     }
     .button-block{
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
     }
 </style>
