@@ -10,7 +10,7 @@
                 <input v-model="salary" type="number" class="form-control" placeholder="Salary">
                 <div class="button-block">
                     <button class="btn btn-success">Save</button>
-                    <button @click="back()" class="btn btn-warning">Cancel</button>
+                    <button type="button" @click="back()" class="btn btn-warning">Back</button>
                 </div>
             </form>
         </div>
