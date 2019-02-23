@@ -1,0 +1,1 @@
+export const isProtected = worker => worker.name === 'Koganov Oleksandr';

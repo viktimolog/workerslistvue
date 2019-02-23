@@ -33,7 +33,8 @@
                     </button>
                 </td>
                 <td>
-                    <button @click="delWorker(worker._id)"
+                    <button v-if="!getProtection(worker)"
+                            @click="delWorker(worker._id)"
                             class="btn btn-danger">
                         Delete
                     </button>
@@ -51,6 +52,7 @@
     import Card from './Card';
     import {router} from '../routes';
     import './Styles/workersListStyles.css';
+    import {isProtected} from '../utils/helpers';
 
     export default {
         components: { Card },
@@ -78,6 +80,9 @@
             }),
             switchWorker(id){
                 router.push({ name: 'worker', params: { id }});
+            },
+            getProtection(worker){
+                return isProtected(worker);
             }
         }
     }

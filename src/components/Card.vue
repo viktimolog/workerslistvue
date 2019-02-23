@@ -5,8 +5,8 @@
         <hr>
         <div class="alert alert-warning">
             <form v-on:submit.prevent="submit">
-                <input v-model="name" type="text" class="form-control" placeholder="Name">
-                <input v-model="position" type="text" class="form-control" placeholder="Position">
+                <input v-model="name" type="text" class="form-control" placeholder="Name" :disabled="getProtection">
+                <input v-model="position" type="text" class="form-control" placeholder="Position" :disabled="getProtection">
                 <input v-model="salary" type="number" class="form-control" placeholder="Salary">
                 <div class="button-block">
                     <button class="btn btn-success">Save</button>
@@ -19,6 +19,7 @@
 <script>
     import {mapGetters} from 'vuex';
     import {mapActions} from 'vuex';
+    import {isProtected} from '../utils/helpers';
 
     export default {
         data () {
@@ -40,7 +41,10 @@
         computed:{
             ...mapGetters('workers',{
                 worker: 'item'
-            })
+            }),
+            getProtection(){
+                return isProtected(this.worker);
+            }
         },
         methods:{
             ...mapActions('workers',{
